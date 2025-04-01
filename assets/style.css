@@ -11,7 +11,22 @@ body {
 	color: deeppink;
 	font-family: Noto_Serif, serif;
 	transition: background 500ms ease;
+
 }
+
+#drop-cap{
+	font-family: cursive;
+	font-size: 22;
+
+}
+
+span {
+	background: beige;
+	color: purple;
+	font-family: Noto_Serif, serif;
+	transition: background 500ms ease;
+}
+
 
 p, li {
 	font-size:  16px;
