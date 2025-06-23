@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CSS Shapes Drawing – Colorful & Scaled Up</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom, #fdfdfd, #e9e9e9);
+      font-family: Arial, sans-serif;
+    }
+
+    #stage {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      background-color: white;
+      border: 3px solid #ccc;
+      border-radius: 16px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+    }
+
+    #square {
+      position: absolute;
+      width: 200px;
+      height: 300px;
+      background: radial-gradient(circle at 40% 40%, #fff66a, #ffd700, #c9b800);
+      left: 150px;
+      top: 100px;
+      border-bottom-left-radius: 60px;
+      border-bottom-right-radius: 60px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    #square::before,
+    #square::after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle at center, #fff66a, #ffd700, #c9b800);
+      border-radius: 50%;
+      top: -30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    #square::before {
+      left: -20px;
+    }
+
+    #square::after {
+      right: -20px;
+    }
+
+    #clip {
+      position: absolute;
+      width: 100px;
+      height: 300px;
+      background: radial-gradient(circle at center, #90d6ff, #3a98db, #002244);
+      border-radius: 25px;
+      right: 100px;
+      top: 130px;
+      z-index: 2;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      color: white;
+      font-weight: bold;
+      font-size: 28px;
+      user-select: none;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    #triangle {
+      position: absolute;
+      width: 200px;
+      height: 250px;
+      background: linear-gradient(135deg, #ffa07a, #ff6347, #b22222);
+      clip-path: polygon(
+        0% 0%, 
+        100% 0%, 
+        80% 100%, 
+        20% 100%
+      );
+      left: 50px;
+      top: 180px;
+      z-index: 3;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+      font-size: 34px;
+      user-select: none;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    #circle {
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      background: radial-gradient(circle at center, #ffd580, #ff9900, #b36b00);
+      border-radius: 50%;
+      bottom: 60px;
+      left: 200px;
+      z-index: 4;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+    }
+
+    #platform {
+      position: absolute;
+      width: 180px;
+      height: 30px;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, transparent 80%);
+      border-radius: 50%;
+      bottom: 50px;
+      left: 190px;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <div id="square"></div>
+    <div id="clip">user interface</div>
+    <div id="triangle">RAMEN</div>
+    <div id="circle"></div>
+    <div id="platform"></div>
+  </div>
+</body>
+</html>
