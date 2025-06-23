@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>a game, shall we?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: 'YujiMai';
+      src: url('YujiMai-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'Noto Serif', serif;
+      background-image: url('backgroundpic.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      height: 100vh;
+      margin: 0;
+      text-transform: lowercase;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #centerImage {
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 100px;
+      width: 1250px;
+      object-fit: contain;
+      z-index: 2;
+    }
+
+    /* Magical Glow Image Styling */
+    #glowImage {
+      position: absolute;
+      top: 39%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.8;
+      filter:
+        drop-shadow(0 0 20px #fff)
+        drop-shadow(0 0 40px #ffd1dc)
+        drop-shadow(0 0 60px #ffaacc);
+      animation: floatGlow 6s ease-in-out infinite;
+      transition: filter 0.3s ease, animation 0.3s ease;
+    }
+
+    #glowImage:hover {
+      filter:
+        drop-shadow(0 0 20px #d25648)
+        drop-shadow(0 0 40px #d25648)
+        drop-shadow(0 0 60px #d25648);
+      animation: floatGlow 6s ease-in-out infinite, wiggleDistort 0.5s ease-in-out;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    @keyframes floatGlow {
+      0%,
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      50% {
+        transform: translate(-50%, -52%) scale(1.05);
+      }
+    }
+
+    @keyframes wiggleDistort {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg) scale(1);
+      }
+
+      25% {
+        transform: translate(-50%, -50%) rotate(-1.5deg) scale(1.02, 0.98);
+      }
+
+      50% {
+        transform: translate(-50%, -50%) rotate(1.5deg) scale(0.98, 1.02);
+      }
+
+      75% {
+        transform: translate(-50%, -50%) rotate(-1deg) scale(1.01, 0.99);
+      }
+
+      100% {
+        transform: translate(-50%, -50%) rotate(0deg) scale(1);
+      }
+    }
+
+    #leftColumn {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding-left: 100px;
+      padding-top: 60px;
+      z-index: 3;
+      position: relative;
+    }
+
+    #cat {
+      height: 550px;
+      transition: transform 0.3s ease;
+      animation: sway 4s ease-in-out infinite;
+    }
+
+    #cat:hover {
+      animation: float 2s infinite ease-in-out !important;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes sway {
+      0% {
+        transform: translateX(0);
+      }
+
+      50% {
+        transform: translateX(10px);
+      }
+
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    /* Cup wrapper handles sway and jump */
+    #cupWrapper {
+      position: absolute;
+      top: 48%;
+      left: 47%;
+      width: 240px; /* 120px * 2 = 240px */
+      height: auto;
+      transform: translate(-50%, -50%);
+      animation: sway 4s ease-in-out infinite;
+      cursor: pointer;
+      z-index: 4;
+      filter: drop-shadow(0 0 6px #aaffff);
+      transition: filter 0.3s ease;
+    }
+
+    /* Cup image handles rotation */
+    #cup {
+      width: 100%;
+      height: auto;
+      animation: rotateCup 2s linear infinite;
+      display: block;
+      transform-origin: center center;
+    }
+
+    /* Hover states */
+    #cupWrapper:hover {
+      animation: sway 4s ease-in-out infinite, jumpUp 0.5s ease forwards;
+      filter:
+        drop-shadow(0 0 10px #fff)
+        drop-shadow(0 0 20px #fff)
+        drop-shadow(0 0 30px #ccf8ff);
+    }
+
+    #cupWrapper:hover #cup {
+      animation: rotateCup 2s linear infinite, extraSpin 0.7s linear 1;
+    }
+
+    @keyframes rotateCup {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes extraSpin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes jumpUp {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-20px);
+      }
+    }
+
+    #container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      width: 700px;
+      gap: 30px;
+      padding-right: 1.5vw;
+      padding-top: 120px;
+      z-index: 3;
+    }
+
+    #ask {
+      width: 500px;
+      margin-top: -30px;
+    }
+
+    #iam {
+      width: 350px;
+    }
+
+    input[type="text"] {
+      font-family: 'YujiMai', serif;
+      padding: 15px 50px 15px 25px;
+      font-size: 21px;
+      max-width: 450px;
+      height: 56px;
+      border-radius: 25px;
+      border: none;
+      outline: none;
+      text-transform: lowercase;
+      background-color: #576987;
+      color: white;
+      box-shadow:
+        0 0 6px #576987,
+        0 0 12px #576987,
+        0 0 20px #576987,
+        0 0 30px #576987,
+        0 0 45px #576987;
+    }
+
+    input[type="text"]::placeholder {
+      font-family: 'YujiMai', serif;
+      text-transform: lowercase;
+      color: #d0d8e3;
+    }
+
+    #responseBox {
+      font-family: 'YujiMai', serif;
+      padding: 15px 50px 15px 25px;
+      background-color: #d25648;
+      border-radius: 15px;
+      font-size: 21px;
+      color: white;
+      display: none;
+      max-width: 100%;
+      text-transform: lowercase;
+      box-shadow:
+        0 0 8px #d25648,
+        0 0 15px #d25648,
+        0 0 25px #d25648,
+        0 0 40px #d25648,
+        0 0 60px #d25648;
+      word-wrap: break-word;
+    }
+
+    .sprinkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      font-size: 16px;
+      color: hsl(var(--hue), 90%, 85%);
+      text-shadow: 0 0 6px currentColor, 0 0 12px currentColor;
+      animation: starFall 1.5s linear forwards;
+    }
+
+    @keyframes starFall {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(60px) scale(0.5);
+      }
+    }
+
+    /* Pop-up overlay styles */
+    #popupOverlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(255, 255, 255, 0.3); /* 30% opacity */
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    /* Pop-up text with pulsing white glow */
+    #popupText {
+      font-family: 'YujiMai', serif;
+      font-size: 26px;
+      color: #333;
+      max-width: 600px;
+      line-height: 1.4;
+      user-select: none;
+      text-transform: none;
+      background: rgba(255 255 255 / 0.8);
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow:
+        0 0 20px rgba(0, 0, 0, 0.2);
+      animation: whitePulseGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes whitePulseGlow {
+      0%,
+      100% {
+        box-shadow:
+          0 0 10px 2px rgba(255, 255, 255, 0.4),
+          0 0 20px 5px rgba(255, 255, 255, 0.15);
+      }
+
+      50% {
+        box-shadow:
+          0 0 15px 4px rgba(255, 255, 255, 0.7),
+          0 0 30px 8px rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    @media (max-width: 700px) {
+      #popupText {
+        font-size: 20px;
+        max-width: 90%;
+        padding: 20px 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <img id="centerImage" src="one.png" alt="center image" />
+  <img id="glowImage" src="the glow.png" alt="glow effect" />
+
+  <div id="cupWrapper">
+    <img id="cup" src="cup.png" alt="magical cup" />
+  </div>
+
+  <div id="leftColumn">
+    <img id="cat" src="the cat.png" alt="a mysterious cat" />
+  </div>
+
+  <div id="container">
+    <img id="ask" src="ask.png" alt="ask image" />
+    <img id="iam" src="i am.png" alt="i am image" />
+    <input type="text" id="searchBar" placeholder="inquire humbly and neat,..." />
+    <div id="responseBox"></div>
+  </div>
+
+  <!-- Pop-up overlay -->
+  <div id="popupOverlay">
+    <div id="popupText">
+      step into the shadows, daring soul, and ask your fateful yes-or-no questions. <br> each answer will twist the tale in strange and wondrous ways. gather your friends—only together can you conjure the wildest stories the night will whisper. <br> will you dare to play?
+    </div>
+  </div>
+
+  <script>
+    const searchBar = document.getElementById('searchBar');
+    const responseBox = document.getElementById('responseBox');
+    const popupOverlay = document.getElementById('popupOverlay');
+
+    const responses = [
+      "Yes", "No", "Maybe", "Not sure", "Definitely", "Absolutely not", "Of course", "Never", "I think so", "I doubt it",
+      "The moon says yes", "The stars are unsure", "Ask me after tea", "I’ll never tell", "Mmm… suspiciously so",
+      "Not unless the wind changes", "Try again when the clock strikes thirteen", "Why not?", "Only if you believe",
+      "If the cat agrees", "The answer is hidden in the fog", "It has already happened", "Do you really want to know?",
+      "You already know the answer", "The answer is not ready yet", "I saw it in a dream, and it was unclear",
+      "Ask the mirror", "A whisper says yes, a shadow says no", "Wait for the raven's call", "It depends on the tide",
+      "My sandwich says no", "Ask again, I wasn’t listening", "Let me flip a coin… oops, it vanished",
+      "I asked my cactus and it said maybe", "That’s classified wizard info", "The goblins said yes, but they lie",
+      "Yes—but only on Wednesdays", "Not unless you dance first", "Mmm… give me chocolate and I’ll tell", "Ask Siri",
+      "Bold of you to ask", "You’re not ready for the answer", "Not in this lifetime", "Obviously", "That’s adorable",
+      "Pfft. No.", "I’m not your therapist", "One day, maybe", "I plead the fifth", "Why ruin the mystery?"
+    ];
+
+    searchBar.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+        responseBox.textContent = randomResponse;
+        responseBox.style.display = 'block';
+        searchBar.value = '';
+      }
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      const star = document.createElement("div");
+      star.className = "sprinkle";
+      star.textContent = "★";
+      star.style.left = `${e.clientX}px`;
+      star.style.top = `${e.clientY}px`;
+      star.style.setProperty('--hue', Math.floor(Math.random() * 360));
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 1500);
+    });
+
+    // Close popup on click anywhere
+    popupOverlay.addEventListener('click', () => {
+      popupOverlay.style.display = 'none';
+    });
+  </script>
+</body>
+
+</html>
