@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <title>humay's website | ui design programming 1</title>
-  <link rel="stylesheet" type="text/css" href="assets/style.css">
+  <link rel="stylesheet" href="assets/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet">
   <style>
     body {
@@ -17,17 +17,11 @@
       overflow-x: hidden;
     }
 
-    h1,
-    h2,
-    p,
-    li,
-    a,
-    button {
+    h1, h2, p, li, a, button {
       text-transform: lowercase;
     }
 
-    h1:hover,
-    h2:hover {
+    h1:hover, h2:hover {
       background: linear-gradient(90deg, #ff99cc, #cc99ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -84,20 +78,9 @@
     }
 
     @keyframes glow {
-      0% {
-        text-shadow: 0 0 2px #ffccff, 0 0 5px #ff99cc;
-        opacity: 1;
-      }
-
-      50% {
-        text-shadow: 0 0 6px #ffccff, 0 0 10px #ff99cc;
-        opacity: 0.7;
-      }
-
-      100% {
-        text-shadow: 0 0 2px #ffccff, 0 0 5px #ff99cc;
-        opacity: 1;
-      }
+      0% { text-shadow: 0 0 2px #ffccff, 0 0 5px #ff99cc; opacity: 1; }
+      50% { text-shadow: 0 0 6px #ffccff, 0 0 10px #ff99cc; opacity: 0.7; }
+      100% { text-shadow: 0 0 2px #ffccff, 0 0 5px #ff99cc; opacity: 1; }
     }
 
     a {
@@ -105,11 +88,10 @@
       text-decoration: underline;
     }
 
-    a:hover {
+    a:hover, a:active {
       color: #cc33cc;
     }
 
-    /* Dark mode styles */
     body.dark-mode {
       background-color: #121212;
       color: #e0e0e0;
@@ -120,14 +102,13 @@
     }
 
     body.dark-mode a {
-      color: #9fbdff;
+      color: white;
     }
 
-    body.dark-mode .list-group li::before {
-      color: #fbb1ff;
+    body.dark-mode a:hover, body.dark-mode a:active {
+      color: #ff99cc;
     }
 
-    /* Dark mode toggle button */
     #darkModeToggle {
       margin: 10px auto 30px;
       padding: 8px 16px;
@@ -148,33 +129,6 @@
       box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
     }
 
-    /* Fairy dust sparkle */
-    .sparkle {
-      position: fixed;
-      width: 6px;
-      height: 6px;
-      background: radial-gradient(circle, #fff6f9, #ffccff, transparent);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 1;
-      animation: fall 1.2s ease-out forwards;
-      box-shadow: 0 0 4px #fff6f9, 0 0 8px #ffccff;
-    }
-
-    @keyframes fall {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
-
-      100% {
-        transform: translateY(60px) scale(0.3);
-        opacity: 0;
-      }
-    }
-
-    /* Container for projects and gif aligned horizontally */
     .projects-and-gif {
       display: flex;
       align-items: flex-start;
@@ -183,10 +137,14 @@
       width: 100%;
     }
 
-    /* Added margin top to the GIF */
-    .projects-and-gif a img {
-      margin-top: 42px; /* adjust this to move GIF down */
-      margin-left: 6px;
+    .gif-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .gif-column a img {
+      margin-top: 42px;
       width: 190px;
       height: auto;
       border-radius: 10px;
@@ -194,69 +152,110 @@
       transition: opacity 0.3s ease;
     }
 
-    /* GIF hover: become more transparent */
-    .projects-and-gif a img:hover {
+    .gif-column a img:hover {
       opacity: 0.5;
+    }
+
+    .gif-column a:last-child img {
+      margin-top: 32px;
+    }
+
+    .floating-sparkle {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      color: #ffd1f9;
+      font-size: 16px;
+      z-index: 1;
+      pointer-events: auto;
+      animation: pulse 3s infinite ease-in-out, drift 30s linear infinite;
+      user-select: none;
+      transition: transform 0.5s ease;
+    }
+
+    .floating-sparkle:hover {
+      animation-play-state: paused;
+      transform: scale(1.5);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
+
+    @keyframes drift {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(var(--dx, 50px), var(--dy, 50px)) rotate(360deg); }
     }
   </style>
 </head>
 
 <body>
-
   <div id="grid">
     <div id="left-column" class="scroll">
       <h1> ~ humay vahid ~ </h1>
 
-      <button id="darkModeToggle" aria-label="Toggle dark mode">🌙 dark mode</button>
+      <button id="darkModeToggle">🌙 dark mode</button>
 
       <div class="list-group">
         <p class="desc">i am just a girl from azerbaijan who loves all things creative. </p>
-
         <ul>
           <li>my favorite food is qutab. </li>
           <li>my favorite song is fantastic by king princess. </li>
           <li>my favorite website is <a href="https://www.typographicposters.com/">https://www.typographicposters.com/</a></li>
         </ul>
-
         <div class="projects-and-gif">
           <div>
-            <h2> ~ projects & exercises ~ </h2>
+            <h2> ~ projects & exercises ~ </h2><br>
             <ul>
               <li><a href="ascii/exterior-humayvahid.html">ascii town</a></li>
-              <li><a href="https://www.figma.com/proto/FaaLD2x8kXD4LB1CQzzlUq/humay_time-voyage_p_1?node-id=58-198&starting-point-node-id=58%3A184&t=SrTaPpAFbaMk6f6G-1">timoyage prototype</a></li>
+              <li><a href="https://www.figma.com/proto/FaaLD2x8kXD4LB1CQzzlUq/humay_time-voyage_p_1">timoyage prototype</a></li>
               <li><a href="https://1drv.ms/p/c/c332890b918bd2d9/ERNPkilQHl9GmuxNxEQtwMoBfhEtDZ9sNOUFxejJYnPK8Q?e=crdfl7">timoyage presentation</a></li>
+              <li><a href="AAAA">drawing from life</a></li>
               <li><a href="d2.html">a game, shall we?</a></li>
+              <li><a href="BBBB">a game, shall we? presentation</a></li>
             </ul>
           </div>
-          <a href="https://www.youtube.com/watch?v=vob5AwCpF-I" target="_blank" rel="noopener noreferrer">
-            <img src="winx-club-enchantix.gif" alt="Winx Club Enchantix GIF" />
-          </a>
+          <div class="gif-column">
+            <a href="https://www.youtube.com/watch?v=vob5AwCpF-I" target="_blank"><img src="winx-club-enchantix.gif" alt="Winx Club Enchantix GIF" /></a>
+            <a href="https://www.youtube.com/watch?v=cLwNsh7XT9w" target="_blank"><img src="lyna.gif" alt="Lolirock Lyna GIF" /></a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    // Dark mode toggle
-    const toggleBtn = document.getElementById('darkModeToggle');
-    const body = document.body;
-
-    toggleBtn.addEventListener('click', () => {
-      body.classList.toggle('dark-mode');
-      toggleBtn.textContent = body.classList.contains('dark-mode') ? '☀️ light mode' : '🌙 dark mode';
+    document.getElementById('darkModeToggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      document.getElementById('darkModeToggle').textContent = document.body.classList.contains('dark-mode') ? '☀️ light mode' : '🌙 dark mode';
     });
 
-    // Fairy sparkle effect
+    // Cursor sparkle effect
     document.addEventListener('mousemove', (e) => {
       const sparkle = document.createElement('div');
       sparkle.className = 'sparkle';
       sparkle.style.left = `${e.pageX}px`;
-      sparkle.style.top = `${e.pageY}px`;
+      sparkle.style.top = `${e.pageY + window.scrollY}px`;
       document.body.appendChild(sparkle);
       setTimeout(() => sparkle.remove(), 1200);
     });
-  </script>
 
+    // Floating pastel star sparkles
+    const pastelColors = ['#ffd1f9', '#d1fff6', '#ffe1d1', '#f0d1ff', '#d1f4ff'];
+
+    for (let i = 0; i < 20; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'floating-sparkle';
+      sparkle.innerHTML = '✦';
+      sparkle.style.top = `${Math.random() * 100}vh`;
+      sparkle.style.left = `${Math.random() * 100}vw`;
+      sparkle.style.color = pastelColors[Math.floor(Math.random() * pastelColors.length)];
+      sparkle.style.setProperty('--dx', `${Math.random() * 200 - 100}px`);
+      sparkle.style.setProperty('--dy', `${Math.random() * 200 - 100}px`);
+      document.body.appendChild(sparkle);
+    }
+  </script>
 </body>
 
 </html>
